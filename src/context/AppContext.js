@@ -32,10 +32,14 @@ export const AppReducer = (state, action) => {
             }
             case 'RED_EXPENSE':
                 const red_expenses = state.expenses.map((currentExp)=> {
-                    if (currentExp.name === action.payload.name && currentExp.cost - action.payload.cost >= 0) {
-                        currentExp.cost =  currentExp.cost - action.payload.cost;
-                        budget = state.budget + action.payload.cost
-                    }
+                    if (currentExp.name === action.payload.name){
+                        if(currentExp.cost - action.payload.cost >= 0) {
+                            currentExp.cost =  currentExp.cost - action.payload.cost;
+                            budget = state.budget + action.payload.cost
+                        } else {
+                            alert("The value cannot exceed the current allocation budget  £"+currentExp.cost);
+                        }
+                    } 
                     return currentExp
                 })
                 action.type = "DONE";
